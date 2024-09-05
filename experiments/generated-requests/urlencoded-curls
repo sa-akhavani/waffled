@@ -1,0 +1,25 @@
+# //////////////////////
+# //// RAW REQUESTS ////
+# //////////////////////
+
+# //////////////////////
+# /////// NORMAL ///////
+# //////////////////////
+
+# 1 - Normal Valid Request
+POST / HTTP/1.1
+Host: waf.akhavani.net
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 32
+
+field1=value1&field2=value2
+
+
+# 2 - malicious
+# 1 - Normal Valid Request
+POST / HTTP/1.1
+Host: waf.akhavani.net
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 32
+
+field1=<script>alert(document.cookie)</script>field2=value2

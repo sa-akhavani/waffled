@@ -1,0 +1,59 @@
+== GENERAL INFO ==
+
+PublicWWW search query: "type=\"email\"" "forgot password" -reCAPTCHA
+Reasons for excluding websites: emerging captcha, “could not find forget password button”, unreachable, non-english language, porn websites
+Websites rank range: 3341 - 49521
+
+== RESULTS SUMMARY ==
+YES: 30, application/json: 9, application/x-amz-json-1.1:1,  multipart: 2, NO: 2, URL: 1
+
+
+== DETAILS == 
+# Each line has two columns, URL and content-type ('YES' means that the content-type is urlencoded and it can be switchable to multipart)
+
+
+- https://api.anastasiadate.com/v2/notifications/reminders/electronicmail/forgotten-password - label:application/json
+- https://cognito-idp.us-east-1.amazonaws.com/ (https://www.usmagazine.com/) - label:application/x-amz-json-1.1
+- https://public.careercruising.com/services/MarketingSiteWebServices.asmx/forgotpassword - label:application/json; charset=utf-8
+- https://www.malindomiles.com/inspirenetz-api/api/0.9/json/eventlogs/public - label:application/json
+- https://www.kenzo.com/on/demandware.store/Sites-KENZO_GB-Site/en_GB/Account-PasswordResetDialogForm - label:multipart/form-data
+- https://www.travelodge.co.uk/api/v3/user/reset-password - label:application/json; charset=utf-8
+- http://www.ranini.tv/Default.aspx/RemindPassword - label:application/json; charset=utf-8
+- https://www.gotprint.com/service/rest/v1/users/self/password/reset - label:application/json
+- https://advisory.com/api/int.verifyemail.html - label:multipart/form-data
+- https://www.hhv.de/shop/en/profile/request_new_password - label:application/json; charset=UTF-8
+- https://www.mccormick.com/api/sitecore/Cognito/InitiateForgotPassword - label:application/json; charset=utf-8
+- https://besttemplates.com/forgotpassword - label:application/json; charset=utf-8
+- https://www.flightaware.com/account/forgot - label:YES
+- https://www.gradesaver.com/forgot-password  - label:YES
+- https://www.bloglovin.com/api/login/sendnewpass - label:YES
+- https://www.schoolobjects.com/eduphoria_webcontrols/Login.aspx?ForgotPassword= - label:YES
+- https://www.cgtrader.com/users/password - label:YES
+- https://www.rockauto.com/catalog/catalogapi.php - label:YES
+- https://www.expediapartnercentral.com/Account/Reset - label:NO
+- https://www.internations.org/password-recovery/ - label:YES
+- https://www.eyebuydirect.com/forgot-password?action=process - label:YES
+- https://www.coldwellbankerhomes.com/subscriber/forgotpassword/ - label:YES
+- https://www.seoclerk.com/forgotpassword/check - label:YES
+- https://zan.kz/en/Account/ForgotPassword - label:YES
+- https://www.yt-industries.com/widgets/TwShopModifier/getMainMenuAccountData - label:YES
+- https://www.familyfriendpoems.com/users/check_email_registered - label:YES
+- https://www.myregistry.com/GlobalAjax.ashx - label:YES
+- https://studysoup.com/users/password - label:YES
+- https://www.freesteamkeys.com/wp-admin/admin-ajax.php - label:YES
+- https://archiesonline.com/forgot-password-post - label:YES
+- https://www.tindie.com/accounts/forgot_password/ - label:YES
+- https://login.centerpointenergy.com/cnpcwecafprod.onmicrosoft.com/B2C_1A_SignUpOrSignin/SelfAsserted?tx=StateProperties=eyJUSUQiOiI3M2U3YzhkMS0xZWRjLTQzZDAtOTYyOC1mNGRmMzEwMjU2YjEifQ&p=B2C_1A_SignUpOrSignin - label:YES
+- https://www.kingdomofloathing.com/forgotpassword.php - label:YES
+- https://www.monki.com/en/password/requestSignIn - label:NO
+- https://www.americangreetings.com/signin?_DARGS=/cartridges/ForgotPassword/ForgotPassword.jsp.forgotPasswordForm - label:YES
+- https://www.toy.ru/ajax/?alias=auth - label:YES
+- https://serbonline.in/SERB/ForgotPassword - label:YES
+- https://fastplayz.com/ - label:YES
+- https://ladypopular.com/ajax/user.php - label:YES
+- [https://pws.radioedit.iheart.com/v2/member/coast/password/forgot/testing@testing210211.com?recaptchaToken=03AFcWeA7COzmHhjBN3c2-qFdaGRnptE1ohP4G-B5cFG5UYvaCV2CEcnfy2g87YmK5c8nB6WlCRJMmdr8tyzxeThxjjWS9iBlZ6rMFhs6zMtXU-__ipbzAxRK8V1QmwCvHSQoKgbpQF0GK4X36n733uB55bH7F-ZFfPDI171OddWM-ZTvJb7ELFvv0_AXsBTl2Y1EC9KKr-3DGgm7m3z-CKnOxo3-tmC6napACiTocfbttMik_Ya6S2H1VlOteAfvhPMkDnzeruWfFeD449T9DPIF-g0dcavYUXSMaP78NQd2K3RVrywzJwcmtB1C_MCY13y6s4tspYs3CeTSvCYEKN9Ddq071vfr2KG7qdx9W3XkRFiy2QraeXGBmttdSXk0tDxNzcgeYUgFVCfIsuPiLSaXnj7ZrSyyeL0TEUImHFi8bpid2_jC1B7pThLoWqZtdg6_tcRGk3pyCw5oHfNAP92cmH8tGOmht3Gnso-8AjnTTzHiQcmgzEu8ERJPhmOIGBHG7ao5ccs5lH0wlUwV7E5Z24tonGlMqRHskDtTJQoD4N2qYsIuI_w1SMtSHrE4sADsnu45Pa6zsyb4nOIZ-n6QVRlm4pwmkeA](https://pws.radioedit.iheart.com/v2/member/coast/password/forgot/testing@testing210210.com?recaptchaToken=03AFcWeA7COzmHhjBN3c2-qFdaGRnptE1ohP4G-B5cFG5UYvaCV2CEcnfy2g87YmK5c8nB6WlCRJMmdr8tyzxeThxjjWS9iBlZ6rMFhs6zMtXU-__ipbzAxRK8V1QmwCvHSQoKgbpQF0GK4X36n733uB55bH7F-ZFfPDI171OddWM-ZTvJb7ELFvv0_AXsBTl2Y1EC9KKr-3DGgm7m3z-CKnOxo3-tmC6napACiTocfbttMik_Ya6S2H1VlOteAfvhPMkDnzeruWfFeD449T9DPIF-g0dcavYUXSMaP78NQd2K3RVrywzJwcmtB1C_MCY13y6s4tspYs3CeTSvCYEKN9Ddq071vfr2KG7qdx9W3XkRFiy2QraeXGBmttdSXk0tDxNzcgeYUgFVCfIsuPiLSaXnj7ZrSyyeL0TEUImHFi8bpid2_jC1B7pThLoWqZtdg6_tcRGk3pyCw5oHfNAP92cmH8tGOmht3Gnso-8AjnTTzHiQcmgzEu8ERJPhmOIGBHG7ao5ccs5lH0wlUwV7E5Z24tonGlMqRHskDtTJQoD4N2qYsIuI_w1SMtSHrE4sADsnu45Pa6zsyb4nOIZ-n6QVRlm4pwmkeA) (https://www.coasttocoastam.com/pages/coastzone/) - label:URL
+- https://www.moleskine.com/on/demandware.store/Sites-Moleskine_EU-Site/en_GB/Account-PasswordResetDialogForm?mobile= - label:YES
+- https://www.jv.ru/auth/request-password-reset - label:YES
+- https://kazumedia.com/users/forgotPassword - label:YES
+- https://focusgroup.com/Account/FindPassword - label:YES
+- https://account.dailysocial.id/resetpass-wp - label:YES

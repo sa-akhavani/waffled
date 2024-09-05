@@ -1,0 +1,76 @@
+<!-- t-reqs: -->
+POST / HTTP/1.1
+Host: waf.akhavani.net
+Content-Type: application/xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE BOOK [
+<!ENTITY writer "0 union select 'password is: ' || password from user limit 1 -- -">
+<!ENTITY author SYSTEM "https://waf.akhavani.net">
+]>
+<BOOK>
+<genre:schema xmlns:genre="http://localhost"> 
+  <genre:field1 attr="history">&gt;<!--this is a comment -->&writer;text</genre:field1>
+</genre:schema>
+</BOOK>
+
+
+
+
+<!-- XML Full Entity + Schema -->
+<!-- no attack -->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE BOOK [
+<!ENTITY writer "bahruz">
+<!ENTITY author SYSTEM "https://waf.akhavani.net">
+]>
+
+<BOOK>
+<seclab:schema xmlns:seclab="http://localhost"> 
+<seclab:table>
+  <seclab:item attr="drama">&gt;  <!--this is a comment -->&writer; author</seclab:item>
+</seclab:table>
+</seclab:schema>
+</BOOK>
+
+
+
+<!-- XML Full Entity + Schema -->
+<!-- attack is inside entity -->
+<!-- ############################################## -->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE BOOK [
+<!ENTITY writer "0 union select 'password is: ' || password from user limit 1 -- -">
+<!ENTITY author SYSTEM "https://waf.akhavani.net">
+]>
+<BOOK>
+<genre:schema xmlns:genre="http://localhost"> 
+  <genre:item attr="history">&gt;<!--this is a comment -->&writer;text</genre:item>
+</genre:schema>
+</BOOK>
+
+
+
+<!-- XML Full Entity + Schema -->
+<!-- attack is inside item directly -->
+<!-- #############################################-->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE BOOK [
+<!ENTITY writer "hjgghjjkk">
+<!ENTITY author SYSTEM "https://waf.akhavani.net">
+]>
+<BOOK>
+<genre:schema xmlns:genre="http://localhost"> 
+  <genre:item attr="history">0 union select 'password is: ' || password from user limit 2 -- -</genre:item>
+</genre:schema>
+</BOOK>
+
+
+
+<!-- ###################   CDATA   ############################# -->
+<?xml version="1.0" encoding="UTF-8"?>
+<BOOK>
+<genre:schema xmlns:genre="http://localhost"> 
+  <item><![CDATA[<script>alert(document.cookie)</script>]]></item>
+</genre:schema>
+</BOOK>

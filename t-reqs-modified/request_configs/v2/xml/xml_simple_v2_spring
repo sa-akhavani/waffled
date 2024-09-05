@@ -1,0 +1,227 @@
+# Required. The URL address for each target.
+cloudflare = [
+# "https://waf2.akhavani.net/laravel/api/storexml",
+"https://waf2.akhavani.net/spring/xml",
+# "https://waf2.akhavani.net/flask/xml",
+# "https://waf2.akhavani.net/fastapi/xml",
+# "https://waf2.akhavani.net/express/xml",
+# "https://waf2.akhavani.net/gin/xml",
+]
+azure = [
+# "http://52.249.221.180:8630/api/storexml",
+# "http://52.249.221.180:8631/xml",
+# "http://52.249.221.180:8632/xml",
+# "http://52.249.221.180:8633/xml",
+# "http://52.249.221.180:8634/xml",
+# "http://52.249.221.180:8635/xml",
+]
+modsec = [
+# "http://18.116.50.97:80/laravel/api/storexml",
+"http://18.116.50.97:80/spring/xml",
+# "http://18.116.50.97:80/flask/xml",
+# "http://18.116.50.97:80/fastapi/xml",
+# "http://18.116.50.97:80/express/xml",
+# "http://18.116.50.97:80/gin/xml",
+]
+
+config.server_headers = {
+"https://waf2.akhavani.net/laravel/api/storexml": "parser: cloudflare-laravel",
+"https://waf2.akhavani.net/spring/xml": "parser: cloudflare-spring",
+"https://waf2.akhavani.net/flask/xml": "parser: cloudflare-flask",
+"https://waf2.akhavani.net/fastapi/xml": "parser: cloudflare-fastapi",
+"https://waf2.akhavani.net/express/xml": "parser: cloudflare-express",
+"https://waf2.akhavani.net/gin/xml": "parser: cloudflare-gogin",
+
+"http://52.249.221.180:8630/api/storexml": "parser: azure-laravel",
+"http://52.249.221.180:8631/xml": "parser: azure-spring",
+"http://52.249.221.180:8632/xml": "parser: azure-flask",
+"http://52.249.221.180:8633/xml": "parser: azure-fastapi",
+"http://52.249.221.180:8634/xml": "parser: azure-express",
+"http://52.249.221.180:8635/xml": "parser: azure-gogin",
+
+"http://18.116.50.97:80/laravel/api/storexml": "parser: modsec-laravel",
+"http://18.116.50.97:80/spring/xml": "parser: modsec-spring",
+"http://18.116.50.97:80/flask/xml": "parser: modsec-flask",
+"http://18.116.50.97:80/fastapi/xml": "parser: modsec-fastapi",
+"http://18.116.50.97:80/express/xml": "parser: modsec-express",
+"http://18.116.50.97:80/gin/xml": "parser: modsec-gogin",
+}
+
+config.target_urls = cloudflare + azure + modsec
+config.target_host_headers = ["waf2.akhavani.net"] * 2
+
+# POST / HTTP/1.1
+# Host: waf2.akhavani.net
+# X-Request-ID: 1
+# Content-Length: 274
+# Content-Type: application/xml
+# 
+# <?xml version="1.0" encoding="UTF-8"?>
+# <!DOCTYPE BOOK [
+# <!ENTITY writer "hi">
+# <!ENTITY author "https://waf2.akhavani.net">
+# ]>
+# <BOOK>
+# <genre:schema xmlns:genre="http://localhost"> 
+#   <genre:field1 attr="history">&gt;<!--this is a comment --></genre:field1>
+# </genre:schema>
+# <field2>hi</field2>
+# </BOOK>
+#
+# Required. The input grammar for describing the input structure.
+# «»
+config.grammar = {
+    '«start»':
+        ['(«method-path»«headers»«content-length»«content-type»«next-line»«body»'],
+    '«method-path»':
+       ['POST /_URI_ HTTP/1.1\r\n'],
+    '«headers»':
+        ['Host: _HOST_\r\nConnection:close\r\nUser-Agent: Mozilla/5.0\r\nX-Request-ID: _REQUEST_ID_\r\n'],
+    '«content-length»':
+      ['Content-Length: _LENGTH_\r\n'],
+
+    '«content-type»':
+        ['«type»«next-line»'],
+    '«type»':
+        ['«content-type-param»«content-type-value»'],
+    '«content-type-param»':
+      ['Content-Type: '],
+    '«content-type-value»':
+        ['application/xml'],
+    # '«content-type-section»':
+    #     ['Content-Type: application/xml'],
+
+  # body
+  '«body»':
+    ['«version-line»«next-line»«doctype»«next-line»«parent-open»«next-line»«schema»«next-line»«item1-name»«item1-value»«item-close»«next-line»«schema-close»«next-line»«parent-close»'],
+
+# <?xml version="1.0" encoding="UTF-8"?>
+    '«version-line»':
+        ['«open-tag»«xml-start»«space»«version-string»«space»«encoding-string»«question-mark»«close-tag»'],
+    '«xml-start»':
+      ['?xml'],
+    '«version-string»':
+      ['«version-field»«equals»«double-quotes»«version-value»«double-quotes»'],
+    '«version-field»':
+      ['version'],
+    '«version-value»':
+      ['1.0'],
+    '«encoding-string»':
+      ['«encoding-field»«equals»«double-quotes»«encoding-value»«double-quotes»'],
+    '«encoding-field»':
+      ['encoding'],
+    '«encoding-value»':
+      ['UTF-8'],
+
+# ['''<!DOCTYPE BOOK [<!ENTITY writer "' and 1=1 --"> <!ENTITY author "https://waf2.akhavani.net">]>'''],
+  '«doctype»':
+    ['«open-tag»«doctype-start»«doctype-open-bracket»«next-line»«open-tag»«entity-word1»«double-quotes»«entity-value1»«double-quotes»«close-tag»«next-line»«open-tag»«entity-word2»«double-quotes»«entity-value2»«double-quotes»«close-tag»«next-line»«doctype-close-bracket»«close-tag»'],
+  '«doctype-start»':
+    ['!DOCTYPE BOOK '],
+  '«doctype-open-bracket»':
+    ['['],
+  '«doctype-close-bracket»':
+    [']'],
+  '«entity-word1»':
+    ['!ENTITY writer '],
+  '«entity-word2»':
+    ['!ENTITY author '],
+  '«entity-value1»':
+    # ["' and 1=1 --"],
+    ["hello"],
+  '«entity-value2»':
+    ['https://waf2.akhavani.net'],
+
+# <BOOK>
+# <genre:schema xmlns:genre="http://localhost"> 
+  '«parent-open»':
+    ['<BOOK>'],
+  '«parent-close»':
+    ['</BOOK>'],
+  '«schema»':
+    ['''<genre:schema xmlns:genre="http://localhost">'''],
+
+# <genre:field1 attr="drama">&gt;<!--this is a comment -->text</genre:field1>
+  '«item1-name»':
+    ['''«open-tag»«item1-name-str»«space»«attribute»«close-tag»'''],
+  '«item1-name-str»':
+    ['''genre:field1'''],
+  '«attribute»':
+    ['''attr="history"'''],
+
+  '«item1-value»':
+    ['«item-begin»«payload1»'],
+  '«item-begin»':
+    ['''&gt;<!--this is a comment -->'''],
+  '«item-close»':
+    ['''</genre:field1>'''],
+    # Attack Payloads
+  '«payload1»':
+    ["' and 1=1 --"],
+    # ["hello"],
+  '«schema-close»':
+    ['''</genre:schema>'''],
+
+
+# <field2 attr="history">hi</field2>
+  # '«item2»':
+  #   ['''<field2 attr="history">hi</field2>'''],
+
+
+    '«open-tag»': ['<'],
+    '«close-tag»': ['>'],
+    '«next-line»': ['\r\n'],
+    '«comma»': [','],
+    '«colon»': [':'],
+    '«semicolon»': [';'],
+    '«space»': [' '],
+    '«start-tag»': ['«'],
+    '«end-tag»': ['»'],
+    '«start-parenthesis»': ['('],
+    '«end-parenthesis»': [')'],
+    '«equals»': ['='],
+    '«boolean»': ['T', 'F'],
+    '«quality»': ['q=1.0', 'q=0.0'],
+
+    '«double-quotes»': ['"'],
+    '«single-quote»': ['\''],
+    '«start-curly-bracket»': ['{'],
+    '«end-curly-bracket»': ['}'],
+    '«question-mark»': ['?'],
+}
+
+# Required. Minimum number of mutations to be done
+config.min_num_mutations = 0
+
+# Required. Maximum number of mutations to be done 
+config.max_num_mutations = 0
+
+# Required. The mutation type for each symbol to be mutated. Two mutation types are supported: tree (0) and string (1).  
+# config.symbol_mutation_types = {'«field-1-value»': 1} 
+config.symbol_mutation_types = {
+'«content-type»': 0, '«type»': 0,
+'«body»': 0, '«version-line»': 0, '«doctype»': 0,
+'«content-type-param»': 1, '«content-type-value»': 1,
+'«open-tag»' : 1, '«close-tag»' : 1,
+'«xml-start»' : 1,
+'«version-string»' : 0,
+'«version-field»' : 1, '«version-value»' : 1,
+'«encoding-string»' : 0,
+'«encoding-field»' : 1, '«encoding-value»' : 1,
+'«doctype-start»': 1, '«doctype-open-bracket»': 1, '«doctype-close-bracket»': 1,
+'«entity-word1»': 1, '«entity-word2»': 1,
+# '«entity-value1»': 1, '«entity-value2»': 1, # remove mutation in case you put attack payload here
+'«parent-open»': 1, '«parent-close»': 1, '«schema»': 1,
+'«item1-name»': 0, '«item1-name-str»': 1,
+'«attribute»': 1, '«item1-value»': 0, '«item-begin»': 1, '«item-close»': 1,
+'«schema-close»': 1,
+'«space»' : 1, '«question-mark»' : 1,
+'«double-quotes»' : 1, '«equals»' : 1,
+} 
+
+# Required if string mutations are used. The character pool to choose from for insert_random_char and replace_random_char operations.
+config.char_pool = ['\x00', '\x01', '\x02', '\x03', '\x04', '\x05', '\x06', '\x07', '\x08', '\t', '\n', '\x0b', '\x0c', '\r', '\x0e', '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17', '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', '.', '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '«', '=', '»', '?', '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f']
+# config.char_pool = [chr(i) for i in range(256)]
+
+# Not required. If not specified, the set of children nodes will be used as the pool.
+# config.symbol_pool = ['(«request-line», opt(prob=0.9))', '«method-name»', '«space»', '«protocol»', '«separator»', '«version»', '«newline»']

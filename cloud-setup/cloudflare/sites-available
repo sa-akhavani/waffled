@@ -1,0 +1,86 @@
+upstream laravel {
+    server 127.0.0.1:8630;
+}
+upstream spring {
+    server 127.0.0.1:8631;
+}
+upstream flask {
+    server 127.0.0.1:8632;
+}
+upstream fastapi {
+    server 127.0.0.1:8633;
+}
+upstream express {
+    server 127.0.0.1:8634;
+}
+upstream gin {
+    server 127.0.0.1:8635;
+}
+upstream node-json {
+    server 127.0.0.1:8621;
+}
+upstream node-busboy {
+    server 127.0.0.1:8611;
+}
+
+server {
+        server_name waf2.akhavani.net;
+
+        access_log /var/log/nginx/waf-access.log;
+        error_log /var/log/nginx/waf-error.log;
+
+        location /laravel/ {
+            proxy_pass http://laravel/;
+        }
+        location /spring/ {
+            proxy_pass http://spring/;
+        }
+        location /flask/ {
+            proxy_pass http://flask/;
+        }
+        location /fastapi/ {
+            proxy_pass http://fastapi/;
+        }
+        location /express/ {
+            proxy_pass http://express/;
+        }
+        location /gin/ {
+            proxy_pass http://gin/;
+        }
+        location /node-json/ {
+            proxy_pass http://node-json/;
+        }
+        location /node-busboy/ {
+            proxy_pass http://node-busboy/;
+        }        
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/waf2.akhavani.net/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/waf2.akhavani.net/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+
+#server {
+#	listen 80;
+#	listen [::]:80;
+#	server_name waf2.akhavnai.net;
+#}
+
+
+
+server {
+    if ($host = waf2.akhavani.net) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+        listen 80;
+        listen [::]:80;
+
+        server_name waf2.akhavani.net;
+#    listen 80;
+    return 404; # managed by Certbot
+
+
+}
