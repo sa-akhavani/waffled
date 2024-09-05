@@ -1,0 +1,123 @@
+# Required. The URL address for each target.
+cloudflare = [
+"https://waf2.akhavani.net/laravel/api/store",
+"https://waf2.akhavani.net/spring/json",
+"https://waf2.akhavani.net/flask/json",
+"https://waf2.akhavani.net/fastapi/json",
+"https://waf2.akhavani.net/express/json",
+"https://waf2.akhavani.net/gin/json",
+"https://waf2.akhavani.net/node-json/"
+]
+
+config.server_headers = {
+"https://waf2.akhavani.net/laravel/api/store": "parser: cloudflare-laravel",
+"https://waf2.akhavani.net/spring/json": "parser: cloudflare-spring",
+"https://waf2.akhavani.net/flask/json": "parser: cloudflare-flask",
+"https://waf2.akhavani.net/fastapi/json": "parser: cloudflare-fastapi",
+"https://waf2.akhavani.net/express/json": "parser: cloudflare-express",
+"https://waf2.akhavani.net/gin/json": "parser: cloudflare-gogin",
+"https://waf2.akhavani.net/node-json/": "parser: cloudflare-json",
+}
+
+config.target_urls = cloudflare
+
+# Required. The 'Host' header value for each target.
+config.target_host_headers = ["waf2.akhavani.net"] * 7
+
+# POST / HTTP/1.1
+# Host: waf2.akhavani.net
+# User-Agent: Mozilla/5.0
+# X-Request-ID: 1
+# Content-Length: 274
+# Content-Type: application/json
+# Connection: close
+#
+# {
+#   "field1": "' and 1=1 --"
+# }
+
+# Required. The input grammar for describing the input structure.
+# «»
+config.grammar = {
+    '«start»':
+        ['(«method-path»«headers»«content-length»«content-type»«next-line»«body»'],
+
+    '«method-path»':
+       ['POST /_URI_ HTTP/1.1\r\n'],
+
+    '«headers»':
+        ['Host: _HOST_\r\nConnection:close\r\nUser-Agent: Mozilla/5.0\r\nX-Request-ID: _REQUEST_ID_\r\n'],
+    
+    '«content-length»':
+      ['Content-Length: _LENGTH_\r\n'],
+
+    '«content-type»':
+        ['«content-type-section»'],
+
+    '«content-type-section»':
+        ['«content-type-param»«content-type-colon-space»«content-type-value»«next-line»'],
+      
+    '«content-type-param»':
+      ['Content-Type'],
+
+    '«content-type-colon-space»':
+      [': '],
+
+    '«content-type-value»':
+        ['application/json'],
+
+    '«body»':
+        ['«payload-section»'],
+
+    '«payload-section»':
+        ['«start-curly-bracket»«double-quote»«field-name»«double-quote»«colon»«double-quote»«field-value»«double-quote»«end-curly-bracket»'],
+
+    '«field-name»':
+      ['field1'],
+
+    '«field-value»':
+        # ['hello world'],
+        ["' and 1=1 --"],
+
+      '«next-line»': ['\r\n'],
+      '«comma»': [','],
+      '«colon»': [':'],
+      '«semicolon»': [';'],
+      '«space»': [' '],
+      '«start-tag»': ['«'],
+      '«end-tag»': ['»'],
+      '«start-parenthesis»': ['('],
+      '«end-parenthesis»': [')'],
+      '«single-quote»': ['\''],
+      '«double-quote»': ['"'],
+      '«equals»': ['='],
+      '«boolean»': ['T', 'F'],
+      '«quality»': ['q=1.0', 'q=0.0'],
+
+      '«start-curly-bracket»': ['{'],
+      '«end-curly-bracket»': ['}'],
+}
+
+# Required. Minimum number of mutations to be done
+config.min_num_mutations = 1
+
+# Required. Maximum number of mutations to be done 
+config.max_num_mutations = 1
+
+# Required. The mutation type for each symbol to be mutated. Two mutation types are supported: tree (0) and string (1).  
+config.symbol_mutation_types = {
+'«body»': 0, '«content-type»': 0, '«payload-section»': 0, 
+'«content-type-param»': 1, '«content-type-value»': 1, '«content-type-colon-space»': 1,
+'«field-name»': 1,
+'«colon»': 1, '«double-quote»': 1,
+'«start-curly-bracket»': 1, '«end-curly-bracket»': 1,
+'«next-line»': 1
+}
+# '«comma»': 1, '«colon»': 1, '«semicolon»': 1, '«space»': 1, '«start-tag»': 1, '«end-tag»': 1, '«start-parenthesis»': 1, '«end-parenthesis»': 1, '«single-quote»': 1, '«double-quote»': 1, '«equals»': 1, '«boolean»': 1, '«quality»': 1, '«start-curly-bracket»': 1, '«end-curly-bracket»': 1 }
+
+# Required if string mutations are used. The character pool to choose from for insert_random_char and replace_random_char operations.
+config.char_pool = ['\x00', '\x01', '\x02', '\x03', '\x04', '\x05', '\x06', '\x07', '\x08', '\t', '\n', '\x0b', '\x0c', '\r', '\x0e', '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17', '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', '.', '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '«', '=', '»', '?', '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f']
+# config.char_pool = [chr(i) for i in range(256)]
+
+# Not required. If not specified, the set of children nodes will be used as the pool.
+# config.symbol_pool = ['(«request-line», opt(prob=0.9))', '«method-name»', '«space»', '«protocol»', '«separator»', '«version»', '«newline»']

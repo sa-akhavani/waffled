@@ -1,0 +1,10 @@
+cloudflare_hosts = [
+"https://waf2.akhavani.net/laravel",
+"https://waf2.akhavani.net/spring",
+"https://waf2.akhavani.net/flask",
+"https://waf2.akhavani.net/fastapi",
+"https://waf2.akhavani.net/express",
+"https://waf2.akhavani.net/gin",
+"https://waf2.akhavani.net/node-json",
+"https://waf2.akhavani.net/node-busboy"
+]

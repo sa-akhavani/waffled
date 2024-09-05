@@ -1,0 +1,76 @@
+defaultService: projects/waf-research/global/backendServices/be-express-all
+name: path-matcher-1
+routeRules:
+- matchRules:
+  - prefixMatch: /fastapi/
+  priority: 100
+  routeAction:
+    weightedBackendServices:
+    - backendService: projects/waf-research/global/backendServices/be-fastapi-all
+      weight: 100
+    urlRewrite:
+      pathPrefixRewrite: /
+- matchRules:
+  - prefixMatch: /flask/
+  priority: 101
+  routeAction:
+    weightedBackendServices:
+    - backendService: projects/waf-research/global/backendServices/be-flask-all
+      weight: 100
+    urlRewrite:
+      pathPrefixRewrite: /
+- matchRules:
+  - prefixMatch: /gin/
+  priority: 102
+  routeAction:
+    weightedBackendServices:
+    - backendService: projects/waf-research/global/backendServices/be-gin-all
+      weight: 100
+    urlRewrite:
+      pathPrefixRewrite: /
+- matchRules:
+  - prefixMatch: /laravel/
+  priority: 103
+  routeAction:
+    weightedBackendServices:
+    - backendService: projects/waf-research/global/backendServices/be-laravel-all
+      weight: 100
+    urlRewrite:
+      pathPrefixRewrite: /
+- matchRules:
+  - prefixMatch: /node-busboy/
+  priority: 104
+  routeAction:
+    weightedBackendServices:
+    - backendService: projects/waf-research/global/backendServices/be-busboy
+      weight: 100
+    urlRewrite:
+      pathPrefixRewrite: /
+- matchRules:
+  - prefixMatch: /node-json/
+  priority: 105
+  routeAction:
+    weightedBackendServices:
+    - backendService: projects/waf-research/global/backendServices/be-json
+      weight: 100
+    urlRewrite:
+      pathPrefixRewrite: /
+- matchRules:
+  - prefixMatch: /spring/
+  priority: 106
+  routeAction:
+    weightedBackendServices:
+    - backendService: projects/waf-research/global/backendServices/be-spring-all
+      weight: 100
+    urlRewrite:
+      pathPrefixRewrite: /
+- matchRules:
+  - prefixMatch: /express/
+  priority: 107
+  routeAction:
+    weightedBackendServices:
+    - backendService: projects/waf-research/global/backendServices/be-express-all
+      weight: 100
+    urlRewrite:
+      pathPrefixRewrite: /
+

@@ -1,0 +1,70 @@
+upstream laravel {
+    server 127.0.0.1:8630;
+}
+upstream spring {
+    server 127.0.0.1:8631;
+}
+upstream flask {
+    server 127.0.0.1:8632;
+}
+upstream fastapi {
+    server 127.0.0.1:8633;
+}
+upstream express {
+    server 127.0.0.1:8634;
+}
+upstream gin {
+    server 127.0.0.1:8635;
+}
+upstream node-json {
+    server 127.0.0.1:8621;
+}
+upstream node-busboy {
+    server 127.0.0.1:8611;
+}
+
+server {
+        modsecurity on;
+        modsecurity_rules_file /etc/nginx/modsec/main.conf;
+
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        location /laravel/ {
+            proxy_pass http://laravel/;
+        }
+        location /spring/ {
+            proxy_pass http://spring/;
+        }
+        location /flask/ {
+            proxy_pass http://flask/;
+        }
+        location /fastapi/ {
+            proxy_pass http://fastapi/;
+        }
+        location /express/ {
+            proxy_pass http://express/;
+        }
+        location /gin/ {
+            proxy_pass http://gin/;
+        }
+        location /node-json/ {
+            proxy_pass http://node-json/;
+        }
+        location /node-busboy/ {
+            proxy_pass http://node-busboy/;
+        }        
+
+        root /var/www/html;
+
+        # Add index.php to the list if you are using PHP
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name _;
+
+        location / {
+                # First attempt to serve request as file, then
+                # as directory, then fall back to displaying a 404.
+                try_files $uri $uri/ =404;
+        }
+}

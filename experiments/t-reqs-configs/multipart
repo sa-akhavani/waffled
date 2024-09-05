@@ -1,0 +1,115 @@
+# POST / HTTP/1.1
+# Host: localhost
+# Content-Type: multipart/form-data; boundary=AaB03x 
+
+# --AaB03x
+# content-disposition: form-data; name="_charset_"
+
+# UTF-8
+# --AaB03x
+# content-disposition: form-data; name="field1"
+# content-type: text/plain;charset=UTF-8
+# content-transfer-encoding: Binary
+# content-extra: sth
+
+# value1
+# --AaB03x--
+
+
+# Required. The URL address for each target.
+# config.target_urls = ["http://alb-1117388808.us-east-2.elb.amazonaws.com:8590", "http://alb-1117388808.us-east-2.elb.amazonaws.com:8591", "http://alb-1117388808.us-east-2.elb.amazonaws.com:8592", "http://alb-1117388808.us-east-2.elb.amazonaws.com:8595", "http://alb-1117388808.us-east-2.elb.amazonaws.com:8596", "http://alb-1117388808.us-east-2.elb.amazonaws.com:8597"]
+
+config.target_urls = [
+"https://waf2.akhavani.net/laravel",
+"https://waf2.akhavani.net/spring",
+"https://waf2.akhavani.net/flask",
+"https://waf2.akhavani.net/fastapi",
+"https://waf2.akhavani.net/express",
+"https://waf2.akhavani.net/gin",
+"https://waf2.akhavani.net/node-json",
+"https://waf2.akhavani.net/node-busboy"
+]
+
+# Required. The 'Host' header value for each target.
+confg.target_host_headers = ["waf.akhavani.net"] * 8
+
+
+# Required. The input grammar for describing the input structure.
+# «»
+
+config.grammar = {
+      '«start»':
+        ['«headers»«content-type»«next-line»«content-length»«next-line»«body»'],
+
+      #todo we need to change content-length dynamically
+      '«headers»':
+        ['POST / HTTP/1.1\r\nHost: _HOST_\r\nX-Request-ID: _REQUEST_ID_\r\n'],
+        
+      '«content-type»':
+        ['«type»«semicolon»«space»«boundaries»'],
+      
+      '«type»':
+        ['Content-Type: multipart/form-data'],
+
+      '«boundaries»':
+        ['«boundary»'],
+      
+      '«boundary»':
+        ['«boundary-left»«equals»«boundary-right»«semicolon»'],
+
+      '«boundary-left»':
+        ['boundary'],
+
+      '«boundary-right»':
+        ['boundary'],
+
+      '«content-length»':
+        ['Content-Length: 114'],
+
+      '«body»':
+        ['«boundary-body»'],
+
+      '«boundary-body»':
+        ['\r\n--boundary\r\nContent-Disposition: form-data; name="field1"\r\n\r\n<script>alert(document.cookies)</script>\r\n--boundary--'],
+
+      '«next-line»': ['\r\n'],
+      '«comma»': [','],
+      '«colon»': [':'],
+      '«semicolon»': [';'],
+      '«space»': [' '],
+      '«start-tag»': ['«'],
+      '«end-tag»': ['»'],
+      '«start-parenthesis»': ['('],
+      '«end-parenthesis»': [')'],
+      '«equals»': ['='],
+      '«boolean»': ['T', 'F'],
+      '«quality»': ['q=1.0', 'q=0.0']       
+}
+
+# Required. Minimum number of mutations to be done
+config.min_num_mutations = 1 
+
+# Required. Maximum number of mutations to be done 
+config.max_num_mutations = 2
+
+# Required. The mutation type for each symbol to be mutated. Two mutation types are supported: tree (0) and string (1).  
+config.symbol_mutation_types = {'«boundaries»': 0, '«boundary-left»': 1, '«boundary-right»': 1} 
+# config.symbol_mutation_types = {} 
+
+# Required if string mutations are used. The character pool to choose from for insert_random_char and replace_random_char operations.
+config.char_pool = ['\x00', '\x01', '\x02', '\x03', '\x04', '\x05', '\x06', '\x07', '\x08', '\t', '\n', '\x0b', '\x0c', '\r', '\x0e', '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17', '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', '.', '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '«', '=', '»', '?', '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f']
+
+# Not required. If not specified, the set of children nodes will be used as the pool.
+# config.symbol_pool = ['(«request-line», opt(prob=0.9))', '«method-name»', '«space»', '«protocol»', '«separator»', '«version»', '«newline»']
+config.symbol_pool = ['«boundary»']
+
+
+
+
+# boundary=boundary
+# boundary1=value1; boundary2=value2;
+
+# wrap boundary by boundaries and make boundaries tree mutable
+
+# mutate content-type header
+# content-dispositoin could be put in the header and mutated
