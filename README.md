@@ -3,7 +3,7 @@
 This repository contains the datasets and source code related to the paper:
 "WAFFLED: Exploiting Parsing Discrepancies to Bypass Web Application Firewalls",
 accepted at the ACSAC 2025 conference.
-More information about the paper could be accessed (here)[]
+More information about the paper could be accessed [here](https://arxiv.org/abs/2503.10846).
 
 ## Citation
 
@@ -42,8 +42,8 @@ The codebase includes:
 ## ToDo:
 
 - Update README with more details
-  -- Add steps to reproduce all found the bypasses
-  -- Running the fuzzer with our predefined or custom grammar
+  - Add steps to reproduce all found the bypasses
+  - Running the fuzzer with our predefined or custom grammar
 - Add Dockeruzied echo server configs
 - Add bypass sample for each bypass category
 - Add fuzzer grammar for each content-type
