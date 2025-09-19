@@ -1,0 +1,69 @@
+{
+  "apps": [
+    {
+      "name": "express_all",
+      "script": "/root/nodejs/express_all/index.js",
+      "cwd": "/root/nodejs/express_all",
+      "env": {
+        "PORT": 8634
+      }
+    },
+    {
+      "name": "busboy",
+      "script": "/root/nodejs/nodejs_http_multipart_busboy/index.js",
+      "cwd": "/root/nodejs/nodejs_http_multipart_busboy",
+      "env": {
+        "PORT": 8611
+      }
+    },
+    {
+      "name": "node-http-json",
+      "script": "/root/nodejs/nodejs_http_json/index.js",
+      "cwd": "/root/nodejs/nodejs_http_json",
+      "env": {
+        "PORT": 8621
+      }
+    },
+    {
+      "name": "flask-all",
+      "script": "flask",
+      "args": "run -h 0.0.0.0 -p 8632 --with-threads",
+      "cwd": "/root/python/flask_all",
+      "env": {
+        "FLASK_ENV": "production",
+        "FLASK_APP": "app.py"
+      },
+      "interpreter": "/usr/bin/python3"
+    },
+    {
+      "name": "fastapi-all",
+      "script": "uvicorn",
+      "args": "main:app --host 0.0.0.0 --port 8633",
+      "cwd": "/root/python/fast_api_all",
+      "interpreter": "/usr/bin/python3"
+    },
+    {
+      "name": "gin-all",
+      "script": "go",
+      "args": "run main.go",
+      "cwd": "/root/golang/gin-all",
+      "env": {
+        "GIN_PORT_NUMBER": 8635
+      }
+    },
+    {
+      "name": "laravel",
+      "script": "php",
+      "args": "artisan serve --host 0.0.0.0 --port=8630",
+      "cwd": "/root/laravel/multipart"
+    },
+    {
+      "name": "spring",
+      "script": "./gradlew",
+      "args": "bootRun --args='--server.port=8631'",
+      "cwd": "/root/java/demo",
+      "interpreter": "/bin/bash"
+    }
+  ]
+}
+
