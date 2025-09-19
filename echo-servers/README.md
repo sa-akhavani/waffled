@@ -74,10 +74,10 @@ Services, ports, and apis:
   todo: double check apis for the node.js http servers
 
   - Health Check: `http://localhost:8621/`
-  - application/json: `http://localhost:8621/`
+  - application/json: `http://localhost:8621/json`
 
 - Node.js HTTP Multipart
   todo: double check apis for the node.js http servers
 
   - Health Check: `http://localhost:8611/`
-  - multipart/form-data: `http://localhost:8611/`
+  - multipart/form-data: `http://localhost:8611/multipart`
