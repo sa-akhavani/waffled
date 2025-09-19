@@ -1,0 +1,1 @@
+b'''POST /json HTTP/1.1\r\nHost: waf.destination.com\r\nx-format-output: txt-matched-rules-extended\r\nx-crs-version: 3.3.6\r\nx-crs-paranoia-level: 1\r\nx-backend: nginx\r\nConnection: close\r\nUser-Agent: Mozilla/5.0\r\nContent-Type: application/json\r\nContent-Length: 19\r\n\r\n{"field1":"value1"}'''

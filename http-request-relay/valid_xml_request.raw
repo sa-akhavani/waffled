@@ -1,0 +1,1 @@
+b'''POST /xml HTTP/1.1\r\nHost: waf.destination.com\r\nConnection: close\r\nUser-Agent: Mozilla/5.0\r\nContent-Type: application/xml\r\nContent-Length: 92\r\n\r\n<?xml version="1.0" encoding="UTF-8"?>\r\n\r\n<BOOK>\r\n<field1 attr="drama">Harry Potter</field1>'''
