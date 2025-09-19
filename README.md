@@ -91,6 +91,11 @@ We provide echo server infrastructure and code for the following web servers:
 - Node.js HTTP JSON
 - Node.js HTTP Multipart
 
+These echo servers will parse the request body and return the parsed content in the response in JSON format.
+Also, they will check if the attack payload is present in the parsed content.
+If the attack payload is found, they add a `success: 1` in their response.
+Otherwise, they will have the `success: 0` in their response.
+
 You can find the details about the api endpoints and how to run them in the `echo_servers` directory's README.
 
 ## HTTP Request Relay
@@ -108,3 +113,10 @@ More details about the relay and how to use it can be found in the `http_request
 - add the t-reqs parser code and documentation
 - Add http request relay
 - Dockerize the t-reqs fork
+
+### Important Disclaimer:
+
+Any provided code, dataset, or information in this repository is for testing, educational, and research purposes only.
+We highly discourage the use of any of the provided material in any environment that could cause harm or damage,
+including any production system that do not belong to you.
+The authors are not responsible for any misuse of the provided information on this repository.

@@ -1,0 +1,1 @@
+b'''POST /json HTTP/1.1\r\nHost: waf.mytargetwebapp.com\r\nConnection:close\r\nUser-Agent: Mozilla/5.0\r\nX-Request-ID: 3277\r\nContent-Length: 52\r\nContentType: application/json\r\n\r\n{"field1":"<script>alert(document.cookie)</script>"}'''
