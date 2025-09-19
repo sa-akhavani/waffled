@@ -96,7 +96,7 @@ You can find the details about the api endpoints and how to run them in the `ech
 ## HTTP Request Relay
 
 To manually test a request, you can use the HTTP request relay to forward an http request to the destination in binary string format without any modification.
-wip
+More details about the relay and how to use it can be found in the `http_request_relay` directory's README.
 
 ## ToDo:
 
