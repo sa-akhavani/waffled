@@ -1,13 +1,9 @@
 List of all bypasses found during our experiments and the ones that are presented in the WAFFFLED paper.
 These requests have bypassed through at least one of the WAFs tested in our experiments and have been parsed by at least one web application from our echo-servers.
 
-### Dataset Folder and File Structure:
+### How to use:
 
-- json: json bypasses
-- multipart: multipart bypasses
-- xml: xml bypasses
-- valids: These are valid requests that should be allowed by the WAF. These do not contain any attack payload.
-- detectables: These are basic request payloads for different content-types that are detected by most WAFs.
+You can use the `http-request-relay` tool to replay the requests in this dataset against your WAF and web application.
 
 ### Important Note:
 

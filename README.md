@@ -103,6 +103,8 @@ You can find the details about the api endpoints and how to run them in the `ech
 To manually test a request, you can use the HTTP request relay to forward an http request to the destination in binary string format without any modification.
 More details about the relay and how to use it can be found in the `http_request_relay` directory's README.
 
+_Important Note_: Do NOT use `curl` or any other HTTP client to send the generated requests to the WAFs or echo servers because they will modify the request before sending it to the destination.
+
 ## ToDo:
 
 - Update README with more details
