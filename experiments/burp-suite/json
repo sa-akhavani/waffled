@@ -1,7 +1,0 @@
-POST /json HTTP/1.1
-Host: localhost
-Content-Type: application/json
-
-{
-    "field1": "value1"
-}
