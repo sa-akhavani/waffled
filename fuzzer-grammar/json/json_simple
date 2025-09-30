@@ -1,83 +1,51 @@
 # Required. The URL address for each target.
-cloudarmor = [
-"http://34.111.13.62:80/laravel/api/store",
-"http://34.111.13.62:80/spring/json",
-"http://34.111.13.62:80/flask/json",
-"http://34.111.13.62:80/fastapi/json",
-"http://34.111.13.62:80/express/json",
-"http://34.111.13.62:80/gin/json",
-"http://34.111.13.62:80/node-json/",
-]
-aws = [
-"http://alb-1117388808.us-east-2.elb.amazonaws.com:8630/api/store",
-"http://alb-1117388808.us-east-2.elb.amazonaws.com:8631/json",
-"http://alb-1117388808.us-east-2.elb.amazonaws.com:8632/json",
-"http://alb-1117388808.us-east-2.elb.amazonaws.com:8633/json",
-"http://alb-1117388808.us-east-2.elb.amazonaws.com:8634/json",
-"http://alb-1117388808.us-east-2.elb.amazonaws.com:8635/json",
-"http://alb-1117388808.us-east-2.elb.amazonaws.com:8621",
-]
-azure = [
-"http://52.249.221.180:8630/api/store",
-"http://52.249.221.180:8631/json",
-"http://52.249.221.180:8632/json",
-"http://52.249.221.180:8633/json",
-"http://52.249.221.180:8634/json",
-"http://52.249.221.180:8635/json",
-"http://52.249.221.180:8621/",
-]
-modsec = [
-"http://18.116.50.97:80/laravel/api/store",
-"http://18.116.50.97:80/spring/json",
-"http://18.116.50.97:80/flask/json",
-"http://18.116.50.97:80/fastapi/json",
-"http://18.116.50.97:80/express/json",
-"http://18.116.50.97:80/gin/json",
-"http://18.116.50.97:80/node-json/",
+waf1 = [
+"https://waf1.mytargetwaf.com/laravel/api/store",
+"https://waf1.mytargetwaf.com/spring/json",
+"https://waf1.mytargetwaf.com/flask/json",
+"https://waf1.mytargetwaf.com/fastapi/json",
+"https://waf1.mytargetwaf.com/express/json",
+"https://waf1.mytargetwaf.com/gin/json",
+"https://waf1.mytargetwaf.com/node-json/",
 ]
 
+waf2 = [
+"https://waf2.mytargetwaf.com/laravel/api/store",
+"https://waf2.mytargetwaf.com/spring/json",
+"https://waf2.mytargetwaf.com/flask/json",
+"https://waf2.mytargetwaf.com/fastapi/json",
+"https://waf2.mytargetwaf.com/express/json",
+"https://waf2.mytargetwaf.com/gin/json",
+"https://waf2.mytargetwaf.com/node-json/",
+]
+
+# Required. This header would be used in the parser to identify the bypass of target WAF-webapp tuple.
 config.server_headers = {
 
-"http://52.249.221.180:8630/api/store": "parser: azure-laravel",
-"http://52.249.221.180:8631/json": "parser: azure-spring",
-"http://52.249.221.180:8632/json": "parser: azure-flask",
-"http://52.249.221.180:8633/json": "parser: azure-fastapi",
-"http://52.249.221.180:8634/json": "parser: azure-express",
-"http://52.249.221.180:8635/json": "parser: azure-gogin",
-"http://52.249.221.180:8621/": "parser: azure-json",
+"https://waf1.mytargetwaf.com/laravel/api/store": "parser: waf1-laravel",
+"https://waf1.mytargetwaf.com/spring/json": "parser: waf1-spring",
+"https://waf1.mytargetwaf.com/flask/json": "parser: waf1-flask",
+"https://waf1.mytargetwaf.com/fastapi/json": "parser: waf1-fastapi",
+"https://waf1.mytargetwaf.com/express/json": "parser: waf1-express",
+"https://waf1.mytargetwaf.com/gin/json": "parser: waf1-gogin",
+"https://waf1.mytargetwaf.com/node-json/": "parser: waf1-json",
 
-"http://34.111.13.62:80/laravel/api/store": "parser: cloudarmor-laravel",
-"http://34.111.13.62:80/spring/json": "parser: cloudarmor-spring",
-"http://34.111.13.62:80/flask/json": "parser: cloudarmor-flask",
-"http://34.111.13.62:80/fastapi/json": "parser: cloudarmor-fastapi",
-"http://34.111.13.62:80/express/json": "parser: cloudarmor-express",
-"http://34.111.13.62:80/gin/json": "parser: cloudarmor-gogin",
-"http://34.111.13.62:80/node-json/": "parser: cloudarmor-json",
-
-"http://alb-1117388808.us-east-2.elb.amazonaws.com:8630/api/store": "parser: aws-laravel",
-"http://alb-1117388808.us-east-2.elb.amazonaws.com:8631/json": "parser: aws-spring",
-"http://alb-1117388808.us-east-2.elb.amazonaws.com:8632/json": "parser: aws-flask",
-"http://alb-1117388808.us-east-2.elb.amazonaws.com:8633/json": "parser: aws-fastapi",
-"http://alb-1117388808.us-east-2.elb.amazonaws.com:8634/json": "parser: aws-express",
-"http://alb-1117388808.us-east-2.elb.amazonaws.com:8635/json": "parser: aws-gogin",
-"http://alb-1117388808.us-east-2.elb.amazonaws.com:8621": "parser: aws-json",
-
-"http://18.116.50.97:80/laravel/api/store": "parser: modsec-laravel",
-"http://18.116.50.97:80/spring/json": "parser: modsec-spring",
-"http://18.116.50.97:80/flask/json": "parser: modsec-flask",
-"http://18.116.50.97:80/fastapi/json": "parser: modsec-fastapi",
-"http://18.116.50.97:80/express/json": "parser: modsec-express",
-"http://18.116.50.97:80/gin/json": "parser: modsec-gogin",
-"http://18.116.50.97:80/node-json/": "parser: modsec-json",
+"https://waf2.mytargetwaf.com/laravel/api/store": "parser: waf2-laravel",
+"https://waf2.mytargetwaf.com/spring/json": "parser: waf2-spring",
+"https://waf2.mytargetwaf.com/flask/json": "parser: waf2-flask",
+"https://waf2.mytargetwaf.com/fastapi/json": "parser: waf2-fastapi",
+"https://waf2.mytargetwaf.com/express/json": "parser: waf2-express",
+"https://waf2.mytargetwaf.com/gin/json": "parser: waf2-gogin",
+"https://waf2.mytargetwaf.com/node-json/": "parser: waf2-json",
 }
 
-config.target_urls = azure + cloudarmor + aws + modsec
+config.target_urls = waf1 + waf2
 
 # Required. The 'Host' header value for each target.
-config.target_host_headers = ["waf2.akhavani.net"] * 28
+config.target_host_headers = ["waf.mytargetwaf.com"] * len(config.target_urls)
 
 # POST / HTTP/1.1
-# Host: waf2.akhavani.net
+# Host: waf.mytargetwaf.com
 # User-Agent: Mozilla/5.0
 # X-Request-ID: 1
 # Content-Length: 274

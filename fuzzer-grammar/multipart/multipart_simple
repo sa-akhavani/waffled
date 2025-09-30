@@ -1,31 +1,48 @@
 # Required. The URL address for each target.
-modsec = [
-"http://18.116.50.97:80/laravel/api/store",
-"http://18.116.50.97:80/spring/multipart",
-"http://18.116.50.97:80/flask/multipart",
-"http://18.116.50.97:80/fastapi/multipart",
-"http://18.116.50.97:80/express/multipart",
-"http://18.116.50.97:80/gin/multipart",
-"http://18.116.50.97:80/node-busboy/",
+waf1 = [
+"https://waf1.mytargetwaf.com/laravel/api/store",
+"https://waf1.mytargetwaf.com/spring/multipart",
+"https://waf1.mytargetwaf.com/flask/multipart",
+"https://waf1.mytargetwaf.com/fastapi/multipart",
+"https://waf1.mytargetwaf.com/express/multipart",
+"https://waf1.mytargetwaf.com/gin/multipart",
+"https://waf1.mytargetwaf.com/node-busboy/"
+]
+waf2 = [
+"https://waf2.mytargetwaf.com/laravel/api/store",
+"https://waf2.mytargetwaf.com/spring/multipart",
+"https://waf2.mytargetwaf.com/flask/multipart",
+"https://waf2.mytargetwaf.com/fastapi/multipart",
+"https://waf2.mytargetwaf.com/express/multipart",
+"https://waf2.mytargetwaf.com/gin/multipart",
+"https://waf2.mytargetwaf.com/node-busboy/"
 ]
 
 config.server_headers = {
-"http://18.116.50.97:80/laravel/api/store": "parser: modsec-laravel",
-"http://18.116.50.97:80/spring/multipart": "parser: modsec-spring",
-"http://18.116.50.97:80/flask/multipart": "parser: modsec-flask",
-"http://18.116.50.97:80/fastapi/multipart": "parser: modsec-fastapi",
-"http://18.116.50.97:80/express/multipart": "parser: modsec-express",
-"http://18.116.50.97:80/gin/multipart": "parser: modsec-gogin",
-"http://18.116.50.97:80/node-busboy/": "parser: modsec-busboy",
+"https://waf1.mytargetwaf.com/laravel/api/store": "parser: waf1-laravel",
+"https://waf1.mytargetwaf.com/spring/multipart": "parser: waf1-spring",
+"https://waf1.mytargetwaf.com/flask/multipart": "parser: waf1-flask",
+"https://waf1.mytargetwaf.com/fastapi/multipart": "parser: waf1-fastapi",
+"https://waf1.mytargetwaf.com/express/multipart": "parser: waf1-express",
+"https://waf1.mytargetwaf.com/gin/multipart": "parser: waf1-gogin",
+"https://waf1.mytargetwaf.com/node-busboy/": "parser: waf1-busboy",
+
+"https://waf2.mytargetwaf.com/laravel/api/store": "parser: waf2-laravel",
+"https://waf2.mytargetwaf.com/spring/multipart": "parser: waf2-spring",
+"https://waf2.mytargetwaf.com/flask/multipart": "parser: waf2-flask",
+"https://waf2.mytargetwaf.com/fastapi/multipart": "parser: waf2-fastapi",
+"https://waf2.mytargetwaf.com/express/multipart": "parser: waf2-express",
+"https://waf2.mytargetwaf.com/gin/multipart": "parser: waf2-gogin",
+"https://waf2.mytargetwaf.com/node-busboy/": "parser: waf2-busboy",
 }
 
-config.target_urls = modsec
+config.target_urls = waf1 + waf2
 
 # Required. The 'Host' header value for each target.
-config.target_host_headers = ["waf2.akhavani.net"] * 7
+config.target_host_headers = ["waf.mytargetwaf.com"] * len(config.target_urls)
 
 # POST / HTTP/1.1
-# Host: waf2.akhavani.net
+# Host: waf.mytargetwaf.com
 # User-Agent: Mozilla/5.0
 # X-Request-ID: 1
 # Content-Length: 274
@@ -38,6 +55,7 @@ config.target_host_headers = ["waf2.akhavani.net"] * 7
 # utf-8
 # --real
 # content-disposition: form-data; name="field1"
+# content-transfer-encoding: Binary
 # content-type: text/plain;charset=UTF-8
 # content-extra: something
 #
@@ -103,7 +121,7 @@ config.grammar = {
         ['utf-8'],
 
     '«payload-section»':
-        ['«field-content-disposition»«next-line»«field-content-type»«next-line»«field-content-extra»«next-line»«next-line»«field-value»'],
+        ['«field-content-disposition»«next-line»«field-content-type»«next-line»«field-transfer-encoding»«next-line»«field-content-extra»«next-line»«next-line»«field-value»'],
 
     '«field-content-disposition»':
         ['«content-disposition-param»«content-disposition-value»«semicolon»«space»«field1-name»«equals»«double-quote»«field1-value»«double-quote»'],
@@ -116,6 +134,14 @@ config.grammar = {
     '«field1-value»':
         ['field1'],
         # ['content-disposition: form-data; name="field1"'],
+
+    '«field-transfer-encoding»':
+        ['«content-transfer-encoding-param»«content-transfer-encoding-value»'],
+    '«content-transfer-encoding-param»':
+      ['content-transfer-encoding: '],
+    '«content-transfer-encoding-value»':
+      ['Binary'],
+        # ['content-transfer-encoding: Binary'],
 
     '«field-content-type»':
         ['«body-content-type-param»«body-content-type-value»'],
@@ -134,8 +160,8 @@ config.grammar = {
         # ['content-extra: something'],
         
     '«field-value»':
-        ['hello world'],
-        # ['<script>alert(document.cookie)</script>'],
+        # ['hello world'],
+        ['<script>alert(document.cookie)</script>'],
 
       '«next-line»': ['\r\n'],
       '«comma»': [','],
@@ -156,7 +182,7 @@ config.grammar = {
 config.min_num_mutations = 1
 
 # Required. Maximum number of mutations to be done 
-config.max_num_mutations = 2
+config.max_num_mutations = 1
 
 # Required. The mutation type for each symbol to be mutated. Two mutation types are supported: tree (0) and string (1).  
 config.symbol_mutation_types = {
@@ -167,9 +193,10 @@ config.symbol_mutation_types = {
 '«body»': 0,
 '«charset-section»': 0, '«payload-section»': 0,
 '«charset-content-disposition»': 1, '«charset-value»': 1,
-'«field-content-disposition»': 0, '«field-content-type»': 0, '«field-content-extra»': 0,
+'«field-content-disposition»': 0, '«field-content-type»': 0, '«field-content-extra»': 0, '«field-transfer-encoding»': 0,
 '«content-disposition-param»': 1, '«content-disposition-value»': 1,
 '«field1-name»': 1, '«field1-value»': 1,
+'«content-transfer-encoding-param»': 1, '«content-transfer-encoding-value»': 1,
 '«body-content-type-param»': 1, '«body-content-type-value»': 1,
 '«content-extra-param»': 1, '«content-extra-value»': 1,
 '«semicolon»': 1, '«next-line»': 1, '«equals»': 1,'«space»': 1, '«double-quote»': 1,

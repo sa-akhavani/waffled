@@ -1,31 +1,51 @@
 # Required. The URL address for each target.
-cloudflare = [
-"https://waf2.akhavani.net/laravel/api/store",
-"https://waf2.akhavani.net/spring/json",
-"https://waf2.akhavani.net/flask/json",
-"https://waf2.akhavani.net/fastapi/json",
-"https://waf2.akhavani.net/express/json",
-"https://waf2.akhavani.net/gin/json",
-"https://waf2.akhavani.net/node-json/"
+waf1 = [
+"https://waf1.mytargetwaf.com/laravel/api/store",
+"https://waf1.mytargetwaf.com/spring/json",
+"https://waf1.mytargetwaf.com/flask/json",
+"https://waf1.mytargetwaf.com/fastapi/json",
+"https://waf1.mytargetwaf.com/express/json",
+"https://waf1.mytargetwaf.com/gin/json",
+"https://waf1.mytargetwaf.com/node-json/",
 ]
 
+waf2 = [
+"https://waf2.mytargetwaf.com/laravel/api/store",
+"https://waf2.mytargetwaf.com/spring/json",
+"https://waf2.mytargetwaf.com/flask/json",
+"https://waf2.mytargetwaf.com/fastapi/json",
+"https://waf2.mytargetwaf.com/express/json",
+"https://waf2.mytargetwaf.com/gin/json",
+"https://waf2.mytargetwaf.com/node-json/",
+]
+
+# Required. This header would be used in the parser to identify the bypass of target WAF-webapp tuple.
 config.server_headers = {
-"https://waf2.akhavani.net/laravel/api/store": "parser: cloudflare-laravel",
-"https://waf2.akhavani.net/spring/json": "parser: cloudflare-spring",
-"https://waf2.akhavani.net/flask/json": "parser: cloudflare-flask",
-"https://waf2.akhavani.net/fastapi/json": "parser: cloudflare-fastapi",
-"https://waf2.akhavani.net/express/json": "parser: cloudflare-express",
-"https://waf2.akhavani.net/gin/json": "parser: cloudflare-gogin",
-"https://waf2.akhavani.net/node-json/": "parser: cloudflare-json",
+
+"https://waf1.mytargetwaf.com/laravel/api/store": "parser: waf1-laravel",
+"https://waf1.mytargetwaf.com/spring/json": "parser: waf1-spring",
+"https://waf1.mytargetwaf.com/flask/json": "parser: waf1-flask",
+"https://waf1.mytargetwaf.com/fastapi/json": "parser: waf1-fastapi",
+"https://waf1.mytargetwaf.com/express/json": "parser: waf1-express",
+"https://waf1.mytargetwaf.com/gin/json": "parser: waf1-gogin",
+"https://waf1.mytargetwaf.com/node-json/": "parser: waf1-json",
+
+"https://waf2.mytargetwaf.com/laravel/api/store": "parser: waf2-laravel",
+"https://waf2.mytargetwaf.com/spring/json": "parser: waf2-spring",
+"https://waf2.mytargetwaf.com/flask/json": "parser: waf2-flask",
+"https://waf2.mytargetwaf.com/fastapi/json": "parser: waf2-fastapi",
+"https://waf2.mytargetwaf.com/express/json": "parser: waf2-express",
+"https://waf2.mytargetwaf.com/gin/json": "parser: waf2-gogin",
+"https://waf2.mytargetwaf.com/node-json/": "parser: waf2-json",
 }
 
-config.target_urls = cloudflare
+config.target_urls = waf1 + waf2
 
 # Required. The 'Host' header value for each target.
-config.target_host_headers = ["waf2.akhavani.net"] * 7
+config.target_host_headers = ["waf.mytargetwaf.com"] * len(config.target_urls)
 
 # POST / HTTP/1.1
-# Host: waf2.akhavani.net
+# Host: waf.mytargetwaf.com
 # User-Agent: Mozilla/5.0
 # X-Request-ID: 1
 # Content-Length: 274
@@ -33,7 +53,7 @@ config.target_host_headers = ["waf2.akhavani.net"] * 7
 # Connection: close
 #
 # {
-#   "field1": "' and 1=1 --"
+#   "field1": "<script>alert(document.cookie)</script>"
 # }
 
 # Required. The input grammar for describing the input structure.
@@ -77,7 +97,7 @@ config.grammar = {
 
     '«field-value»':
         # ['hello world'],
-        ["' and 1=1 --"],
+        ['<script>alert(document.cookie)</script>'],
 
       '«next-line»': ['\r\n'],
       '«comma»': [','],
