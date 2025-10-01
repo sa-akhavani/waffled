@@ -5,10 +5,7 @@ This repository contains the datasets and source code related to the paper:
 accepted at the ACSAC 2025 conference.
 More information about the paper could be accessed [here](https://arxiv.org/abs/2503.10846).
 
-## Citation
-
-If you are planning to use the datasets, source code, or the results of this project,
-you can cite this paper using the following BibTEX template:
+If you are planning to use this repository, please consider citing this paper using the following BibTeX:
 
 ```bibtex
 @misc{akhavani2025waffled,
@@ -27,16 +24,16 @@ you can cite this paper using the following BibTEX template:
 With the content of this repository, we aim to provide the community and WAF vendors
 a tool to rigorously test their products against parsing discrepancies for different content-types.
 
-We also provide a dataset of our discovered bypasses in popular WAFs.
+We also provide a dataset of our discovered bypasses in popular WAFs (anonymized).
 
 The codebase includes:
 
-- A HTTP/1.1 fuzzer to generate requests with different content-types
-- Grammar for the fuzzer for different content-types.
-- A parser to extract the generated request results from the fuzzer output
-- Echo servers to test if the web applications behind the WAFs can parse the request payload correctly
+- A HTTP/1.1 fuzzer to generate requests with different content-types.
+- Multiple grammars for the fuzzer to test different features of each content-type and RFCs.
+- A parser to extract the generated request results from the fuzzer output.
+- Echo servers to test if the web applications behind the WAFs can parse the request payload correctly.
 - HTTP request relay to forward an http request to the destination in binary string format without any modification.
-- A dataset of discovered bypasses in popular WAFs
+- A dataset of discovered bypasses in popular WAFs (anonymized).
 - HTTP Normalizer to normalize (cleanse) or block malformed HTTP requests.
 
 ## Content-Types
@@ -49,9 +46,9 @@ We focus on the following content-types in our experiments:
 - application/x-www-form-urlencoded
 
 Multiple grammars are provided for each content-type in the fuzzer to test
-differet features of each content-type and RFCs.
+differet features of each content-type and RFCs. Check the `fuzzer-grammar` directory for more details.
 
-You can test any other content-type by adding a grammar for it in the fuzzer.
+You can test any other content-type by adding a custom grammar for it in the fuzzer.
 
 ## Attack Payloads
 
@@ -96,25 +93,46 @@ Also, they will check if the attack payload is present in the parsed content.
 If the attack payload is found, they add a `success: 1` in their response.
 Otherwise, they will have the `success: 0` in their response.
 
-You can find the details about the api endpoints and how to run them in the `echo_servers` directory's README.
+You can find the details about the api endpoints and how to run them in the `echo-servers` directory's README.
 
 ## HTTP Request Relay
 
 To manually test a request, you can use the HTTP request relay to forward an http request to the destination in binary string format without any modification.
-More details about the relay and how to use it can be found in the `http_request_relay` directory's README.
+More details about the relay and how to use it can be found in the `http-request-relay` directory's README.
 
 _Important Note_: Do NOT use `curl` or any other HTTP client to send the generated requests to the WAFs or echo servers because they will modify the request before sending it to the destination.
+
+## PublicWWW Dataset and Study
+
+We discovered that many frameworks and libraries use the same api or function for parsing `multipart/form-data` and `application/x-www-form-urlencoded` content-types.
+
+This could lead to concerning attacks where a website expects a request in `application/x-www-form-urlencoded` content-type, but the attacker uses the same api and sends their request with a known bypass of the `multipart/form-data` content-type and the target website accepts that request without them knowing that their web server accepts that content-type.
+
+The dataset for the study of interchangeable content-types of multipart/form-data and x-www-form-urlencoded.
+This is achieved by searching through the forgot password forms of famous websites.
+
+## HTTP Normalizer
+
+Documentation Work In Progress.
 
 ## ToDo:
 
 - Update README with more details
-  - Add steps to reproduce all found the bypasses
-  - Running the fuzzer with our predefined or custom grammar
-- Add bypass sample for each bypass category
-- Add fuzzer grammar for each content-type
-- add the t-reqs parser code and documentation
-- Add http request relay
 - Dockerize the t-reqs fork
+- Update HTTP-Normalizer documentation
+
+## How You Can Contribute
+
+We welcome contributions from the community to enhance the capabilities of this repository.
+Here are some ways you can contribute:
+
+- Add more grammars for different content-types and test different features of each content-type and RFCs.
+- Automate removal of mutations that share the same bypass root cause.
+  ( e.g., if a mutation string is shared between 2 bypasses, only one of them should be kept in the dataset.)
+  right now, this is done manually by analyzing the bypasses and their mutation strings.
+- Add more echo servers for different web frameworks and languages.
+- HTTP/2 support for both echo servers and using a new fuzzer.
+- Automatic fingerprinting of the WAF and Web Framework of a target website using the bypass database.
 
 ## Important Disclaimer:
 

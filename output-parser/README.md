@@ -23,7 +23,7 @@ If a request bypasses any of the WAFs, it would be added to the parser output fi
 ```
 
 How the parser works is that it looks for some specific headers in each sent request. Some are mandatory, some are optional.
-The affected-wafs list is something that we define in our t-reqs grammar file and can be customized based on your needs.
+The affected-wafs list is something that we define in our t-reqs grammar file through passing a `parser: <WAF>-<Echo_Server>` header. This can be customized based on your needs.
 
 ## How to use
 
@@ -35,6 +35,15 @@ The parser will create a new file with the same name as the input file but with 
 ```
 
 There is already a sample `data` folder with some t-reqs output for testing.
+
+### Identifying Unique Bypasses
+
+There might be multiple requests that bypass the same WAF with a shared mutation string.
+This is not a mandatory process but is useful to deal with less data and focus on unique bypasses.
+This is a work in progress, this process should be automated in the future or
+the fuzzer should be updated to avoid going through the tree mutation process when a bypass is detected.
+For now, you can check the parser output file and remove the requests that have shared mutation string manually.
+Read the paper for more information on this.
 
 ### Some usefull commands
 
