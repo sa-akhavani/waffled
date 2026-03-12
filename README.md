@@ -6,14 +6,16 @@ accepted at the ACSAC 2025 conference.
 More information about the paper could be accessed [here](https://arxiv.org/abs/2503.10846). If you are planning to use this repository, please consider citing this paper using the following BibTeX:
 
 ```bibtex
-@misc{akhavani2025waffled,
-      title={WAFFLED: Exploiting Parsing Discrepancies to Bypass Web Application Firewalls},
-      author={Seyed Ali Akhavani and Bahruz Jabiyev and Ben Kallus and Cem Topcuoglu and Sergey Bratus and Engin Kirda},
-      year={2025},
-      eprint={2503.10846},
-      archivePrefix={arXiv},
-      primaryClass={cs.CR},
-      url={https://arxiv.org/abs/2503.10846},
+@INPROCEEDINGS{acsac2025waffled,
+  title={WAFFLED: Exploiting Parsing Discrepancies to Bypass Web Application Firewalls},
+  author={Ali Akhavani, Seyed and Jabiyev, Bahruz and Kallus, Ben and Topcuoglu, Cem and Bratus, Sergey and Kirda, Engin},
+  booktitle={2025 IEEE Annual Computer Security Applications Conference (ACSAC)},
+  year={2025},
+  volume={},
+  number={},
+  pages={689-702},
+  keywords={Cloud computing;Firewalls (computing);Fuzzing;Logic gates;Information filters;HTTP;Usability;Protection;Standards;Payloads;Web Security;Web Application Firewalls;Fuzzing;HTTP;Parsing Discrepancies;Request Smuggling;WAF Evasion},
+  doi={10.1109/ACSAC67867.2025.00062}
 }
 ```
 
