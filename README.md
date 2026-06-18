@@ -3,7 +3,7 @@
 This repository contains the datasets and source code related to the paper:
 "WAFFLED: Exploiting Parsing Discrepancies to Bypass Web Application Firewalls",
 accepted at the ACSAC 2025 conference.
-The paper could be accessed [here](https://akhavani.net/publications/waffled/waffled.pdf). If you are planning to use this repository, please consider citing this paper using the following BibTeX:
+The paper could be accessed [here](https://akhavani.net/publications/waffled.pdf). If you are planning to use this repository, please consider citing this paper using the following BibTeX:
 
 ```bibtex
 @INPROCEEDINGS{acsac2025waffled,
