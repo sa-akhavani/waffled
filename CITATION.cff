@@ -1,0 +1,48 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite the paper below."
+title: "WAFFLED: Exploiting Parsing Discrepancies to Bypass Web Application Firewalls"
+type: software
+authors:
+  - family-names: "Ali Akhavani"
+    given-names: "Seyed"
+  - family-names: "Jabiyev"
+    given-names: "Bahruz"
+  - family-names: "Kallus"
+    given-names: "Ben"
+  - family-names: "Topcuoglu"
+    given-names: "Cem"
+  - family-names: "Bratus"
+    given-names: "Sergey"
+  - family-names: "Kirda"
+    given-names: "Engin"
+repository-code: "https://github.com/sa-akhavani/waffled"
+url: "https://akhavani.net/publications/waffled.pdf"
+license: MIT
+keywords:
+  - web application firewall
+  - fuzzing
+  - HTTP
+  - parsing discrepancies
+  - request smuggling
+  - WAF evasion
+preferred-citation:
+  type: conference-paper
+  title: "WAFFLED: Exploiting Parsing Discrepancies to Bypass Web Application Firewalls"
+  authors:
+    - family-names: "Ali Akhavani"
+      given-names: "Seyed"
+    - family-names: "Jabiyev"
+      given-names: "Bahruz"
+    - family-names: "Kallus"
+      given-names: "Ben"
+    - family-names: "Topcuoglu"
+      given-names: "Cem"
+    - family-names: "Bratus"
+      given-names: "Sergey"
+    - family-names: "Kirda"
+      given-names: "Engin"
+  collection-title: "2025 IEEE Annual Computer Security Applications Conference (ACSAC)"
+  year: 2025
+  start: 689
+  end: 702
+  doi: "10.1109/ACSAC67867.2025.00062"
